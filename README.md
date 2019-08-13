@@ -212,27 +212,28 @@ Utilize these tools to validate your JSON schema
 ## More Examples
 
 ### Breaking up a call chain
+
 ```C#
 //Create a new test suite
 var endpoint1 = new RestAssured()
   .Given()
     //Optional, set the name of this suite
-    .Name("JsonIP Test Suite")
+    .Name("JsonIP Test Suite
     //Optional, set the header parameters.  
     //Defaults will be set to application/json if none is given
     .Header("Content-Type", "application/json")
     .Header("Accept-Encoding", "gzip,deflate");
-    .Host("jsonip.com")
-    .Uri("/endpoint1");
+    .Host("jsonplaceholder.typicode.com")
+    .Uri("/todos/1");
 
 //Make a copy of the settings from above, but adjust the endpoint.
-var endpoint2 = endpoint1.Given().Clone().Uri("/endpoint2");
+var endpoint2 = endpoint1.Clone().Uri("/todos/2");
 
 //Do a GET action with the first endpoint configuration
-endpoint2.Given().When().Get().Then().TestBody("test 1", x => x.id != null).Assert("test 1");
+endpoint1.When().Get().Then().TestBody("test 1", x => x.id == 1).Assert("test 1");
 
-//Do a POST action with the second endpoint configuration
-endpoint2.Given().When().Post().Then().TestBody("test 1", x => x.id != null).Assert("test 1");
+//Do a POST action with the first endpoint configuration
+endpoint2.When().Post().Then().TestBody("test 2", x => x.id == 2).Assert("test 2");
 ```
 
 ### Load Test
