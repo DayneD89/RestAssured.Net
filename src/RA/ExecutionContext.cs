@@ -44,7 +44,8 @@ namespace RA
         #region HttpAction Strategy
         private HttpRequestMessage BuildRequest()
         {
-            switch (_httpActionContext.HttpAction())
+            var method = _httpActionContext.HttpAction();
+            switch (method)
             {
                 case HttpActionType.GET:
                     return BuildGet();
@@ -57,7 +58,7 @@ namespace RA
                 case HttpActionType.DELETE:
                     return BuildDelete();
                 default:
-                    throw new Exception("should not have gotten here");
+                    throw new ArgumentException(string.Format("Unknown HTTP method ({0})", method), method.ToString());
             }
         }
 
