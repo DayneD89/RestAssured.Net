@@ -294,7 +294,7 @@ namespace RA
                 }
             }
 
-            throw new Exception(string.Format("({0}) not supported. Consider adding a parser for this type using RestAssured.AddParser", contentType));
+            throw new ArgumentException(string.Format("({0}) not supported. Consider adding a parser for this type using RestAssured.AddParser", contentType), contentType);
         }
 
         private void ParseLoad()
