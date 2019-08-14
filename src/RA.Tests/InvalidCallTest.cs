@@ -9,15 +9,21 @@ namespace RA.Tests
         [Test]
         public void BadAddressShouldFail()
         {
-            Assert.Throws<HttpRequestException>(() =>
+            Assert.Throws<System.ArgumentException>(() =>
             {
-                new RestAssured()
-                    .Given()
-                    .Name("Bad Call")
-                    .When()
-                    .Get("http://www.fake-2-address.com")
-                    .Then()
-                    .Debug();
+                var ec = new RestAssured()
+                           .Given()
+                           .Name("Bad Call")
+                           .When()
+                           .Get("http://www.fake-2-address.com");
+                try
+                {
+                    ec.Then();
+                } catch(System.ArgumentException e)
+                {
+                    Assert.IsTrue(e.ParamName.Contains("text/html"));
+                    throw e;
+                }
             });
         }
     }

@@ -12,9 +12,9 @@ namespace RA.Tests
                 .Given()
                     .Name("JsonIP single thread")
                 .When()
-                //one thread for 15 seconds
+                //one thread for 10 seconds
                     .Load(1, 10)
-                    .Get("http://geoip.nekudo.com/api/")
+                    .Get("http://jsonplaceholder.typicode.com/posts/1")
                 .Then()
                     .Debug();
         }
@@ -26,9 +26,9 @@ namespace RA.Tests
                 .Given()
                     .Name("JsonIP single thread")
                 .When()
-                //one thread for 15 seconds
+                //one thread for 10 seconds
                     .Load(6, 10)
-                    .Get("http://geoip.nekudo.com/api/")
+                    .Get("http://jsonplaceholder.typicode.com/posts/1")
                 .Then()
                     .Debug();
         }

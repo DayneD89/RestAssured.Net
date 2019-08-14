@@ -13,11 +13,12 @@ namespace RA.Tests
                 .Given()
                     .Name("JsonIP")
 				.When()
-                    .Get("http://geoip.nekudo.com/api/")
+                    .Get("http://jsonplaceholder.typicode.com/posts/1")
                 .Then()
                     .Debug()
-                    .TestBody("ip exist", x => x.ip != null)
-                    .Assert("ip exist");
+                    .TestBody("userId exist", x => x.userId != null)
+                    .TestBody("title exist", x => x.title != null)
+                    .AssertAll();
         }
     }
 
