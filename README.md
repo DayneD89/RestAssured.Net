@@ -186,6 +186,7 @@ There are predefined keys for these test.
 total-call
 total-succeeded
 total-lost
+success-percent
 average-ttl-ms
 maximum-ttl-ms
 minimum-ttl-ms
@@ -231,11 +232,11 @@ RestAssured.AddParser("csv",CsvToJson);
 var endpoint1 = new RestAssured()
   .Given()
     //Optional, set the name of this suite
-    .Name("JsonIP Test Suite
+    .Name("JsonIP Test Suite")
     //Optional, set the header parameters.  
     //Defaults will be set to application/json if none is given
     .Header("Content-Type", "application/json")
-    .Header("Accept-Encoding", "gzip,deflate");
+    .Header("Accept-Encoding", "gzip,deflate")
     .Host("jsonplaceholder.typicode.com")
     .Uri("/todos/1");
 
@@ -245,8 +246,8 @@ var endpoint2 = endpoint1.Clone().Uri("/todos/2");
 //Do a GET action with the first endpoint configuration
 endpoint1.When().Get().Then().TestBody("test 1", x => x.id == 1).Assert("test 1");
 
-//Do a POST action with the first endpoint configuration
-endpoint2.When().Post().Then().TestBody("test 2", x => x.id == 2).Assert("test 2");
+//Do a GET action with the second endpoint configuration
+endpoint2.When().Get().Then().TestBody("test 2", x => x.id == 2).Assert("test 2");
 ```
 
 ### Load Test
