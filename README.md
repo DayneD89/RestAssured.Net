@@ -1,9 +1,9 @@
-# RestAssured.Net
+# RestAssured2
 A simple testing suite for REST based interfaces.  The goal is to provide a tool that is simple to use and produces repeatable results.
 
 ## Download
 ### Nuget
-[Nuget RestAssured.Net Info](https://www.nuget.org/packages/RestAssured2)
+[Nuget RestAssured2 Info](https://www.nuget.org/packages/RestAssured2)
 ```Text
 PM> Install-Package RestAssured2
 ```
