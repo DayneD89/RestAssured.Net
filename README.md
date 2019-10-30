@@ -3,9 +3,9 @@ A simple testing suite for REST based interfaces.  The goal is to provide a tool
 
 ## Download
 ### Nuget
-[Nuget RestAssured.Net Info](https://www.nuget.org/packages/RestAssured/)
+[Nuget RestAssured.Net Info](https://www.nuget.org/packages/RestAssured2)
 ```Text
-PM> Install-Package RestAssured
+PM> Install-Package RestAssured2
 ```
 
 ## Example
