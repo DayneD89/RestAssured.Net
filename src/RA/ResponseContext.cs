@@ -323,6 +323,12 @@ namespace RA
                     .FirstOrDefault();
         }
 
+        public (int, int, int) GetLoadPerformance()
+            => ((int)LoadValue("total-succeeded"), (int)LoadValue("total-lost"), (int)LoadValue("total-call"));
+
+        public (double, double, double) GetLoadTimes()
+            => (LoadValue("minimum-ttl-ms"), LoadValue("average-ttl-ms"), LoadValue("maximum-ttl-ms"));
+
         private double LoadValue(string key)
         {
             return _loadValues.Where(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase))
