@@ -304,9 +304,19 @@ namespace RA
                 _loadValues.Add(LoadValueTypes.TotalCall.Value, _loadResponses.Count);
                 _loadValues.Add(LoadValueTypes.TotalSucceeded.Value, _loadResponses.Count(x => x.StatusCode == (int)HttpStatusCode.OK));
                 _loadValues.Add(LoadValueTypes.TotalLost.Value, _loadResponses.Count(x => x.StatusCode == -1));
-                _loadValues.Add(LoadValueTypes.AverageTTLMs.Value, new TimeSpan((long)_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Average(x => x.Ticks)).TotalMilliseconds);
-                _loadValues.Add(LoadValueTypes.MaximumTTLMs.Value, new TimeSpan(_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Max(x => x.Ticks)).TotalMilliseconds);
-                _loadValues.Add(LoadValueTypes.MinimumTTLMs.Value, new TimeSpan(_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Min(x => x.Ticks)).TotalMilliseconds);
+
+                if (_loadValues[LoadValueTypes.TotalSucceeded.Value] > 0)
+                {
+                    _loadValues.Add(LoadValueTypes.AverageTTLMs.Value, new TimeSpan((long)_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Average(x => x.Ticks)).TotalMilliseconds);
+                    _loadValues.Add(LoadValueTypes.MaximumTTLMs.Value, new TimeSpan(_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Max(x => x.Ticks)).TotalMilliseconds);
+                    _loadValues.Add(LoadValueTypes.MinimumTTLMs.Value, new TimeSpan(_loadResponses.Where(x => x.StatusCode == (int)HttpStatusCode.OK).Min(x => x.Ticks)).TotalMilliseconds);
+                }
+                else
+                {
+                    _loadValues.Add(LoadValueTypes.AverageTTLMs.Value, 0);
+                    _loadValues.Add(LoadValueTypes.MaximumTTLMs.Value, 0);
+                    _loadValues.Add(LoadValueTypes.MinimumTTLMs.Value, 0);
+                }
             }
         }
 
