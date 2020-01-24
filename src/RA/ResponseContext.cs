@@ -304,6 +304,8 @@ namespace RA
                 _loadValues.Add(LoadValueTypes.TotalCall.Value, _loadResponses.Count);
                 _loadValues.Add(LoadValueTypes.TotalSucceeded.Value, _loadResponses.Count(x => (x.StatusCode /100) == 2));
                 _loadValues.Add(LoadValueTypes.TotalLost.Value, _loadResponses.Count(x => (x.StatusCode / 100) != 2));
+                _loadValues.Add(LoadValueTypes.PercentSucceeded.Value, _loadValues[LoadValueTypes.TotalSucceeded.Value] / _loadValues[LoadValueTypes.TotalCall.Value] *100);
+                _loadValues.Add(LoadValueTypes.PercentLost.Value, _loadValues[LoadValueTypes.TotalLost.Value] / _loadValues[LoadValueTypes.TotalCall.Value]*100);
 
                 if (_loadValues[LoadValueTypes.TotalSucceeded.Value] > 0)
                 {
