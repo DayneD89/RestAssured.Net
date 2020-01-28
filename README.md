@@ -186,7 +186,7 @@ There are predefined keys for these test.
 total-call
 total-succeeded
 total-lost
-percent-success
+percent-succeeded
 percent-lost
 average-ttl-ms
 maximum-ttl-ms
