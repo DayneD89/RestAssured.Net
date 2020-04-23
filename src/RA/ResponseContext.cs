@@ -367,6 +367,19 @@ namespace RA
             "content".WriteHeader();
             "{0}\n".Write(_content);
 
+            if (!ContentType().ToLower().Contains("json"))
+            {
+                try
+                {
+                    "parsedcontent".WriteHeader();
+                    "{0}\n".Write((string)_parsedContent.ToString());
+                }
+                catch
+                {
+                    "{0}\n".Write("UNABLE TO DISPLAY PARSED DATA");
+                }
+            }
+
             "assertions".WriteHeader();
             foreach (var assertion in _assertions)
             {
@@ -386,36 +399,6 @@ namespace RA
             }
 
             return this;
-        }
-        
-        
-        public string DebugString {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("status code").Append("\n");
-                sb.Append("- ").Append((int)_statusCode).Append("\n");
-                sb.Append("response headers").Append("\n");
-                foreach (var header in _headers)
-                    sb.Append("- ").Append(header.Key).Append(" : ").Append(header.Value).Append("\n");
-                sb.Append("content").Append("\n");
-                sb.Append(_content).Append("\n");
-                sb.Append("parsed content").Append("\n");
-                sb.Append(_parsedContent).Append("\n");
-                sb.Append("assertions").Append("\n");
-                foreach (var assertion in _assertions)
-                    sb.Append("- ").Append(assertion.Key).Append(" : ").Append(assertion.Value).Append("\n");
-                sb.Append("schema errors").Append("\n");
-                foreach (var error in _schemaErrors)
-                    sb.Append("- ").Append(error).Append("\n");
-                if (_loadResponses.Any())
-                {
-                    sb.Append("load test result").Append("\n");
-                    foreach (var loadresult in LoadValueTypes.GetAll())
-                        sb.Append("- ").Append(loadresult.Value).Append(" : ").Append(loadresult.DisplayName.ToLower()).Append("\n");
-                }
-                return sb.ToString();
-            }
         }
 
         /// <summary>
