@@ -34,7 +34,10 @@ namespace RA
         public ResponseContext Then()
         {
             if (_httpActionContext.IsLoadTest())
-                StartCallsForLoad();
+                if (_httpActionContext.IsLoadSetByCount())
+                    StartCallsForLoadCount();
+                else
+                    StartCallsForLoad();
 
             // var response = AsyncContext.Run(async () => await ExecuteCall());
             var response = ExecuteCall().GetAwaiter().GetResult();
@@ -277,6 +280,22 @@ namespace RA
             // swapping this out
             // AsyncContext.Run(async () => await Task.WhenAll(taskThreads));
             Task.WhenAll(taskThreads).GetAwaiter().GetResult();
+        }
+        public void StartCallsForLoadCount()
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            var taskThreads = new List<Task>();
+            for(var i = 0; i < _httpActionContext.Count(); i++)
+            {
+                taskThreads.Add(Task.Run(async () =>
+                {
+                    await MapCall();
+                }, cancellationTokenSource.Token));
+            }
+
+            Task.WhenAll(taskThreads).GetAwaiter().GetResult();
+
         }
 
         public async Task SingleThread(CancellationToken cancellationToken)

@@ -17,8 +17,10 @@ namespace RA
         private readonly SetupContext _setupContext;
         private string _url;
         private bool _isLoadTest = false;
+        private bool _isLoadWithCount = false;
         private int _threads = 1;
         private int _seconds = 60;
+        private int _count = 250;
         private HttpActionType _httpAction;
 
         public HttpActionContext(SetupContext setupContext)
@@ -54,6 +56,15 @@ namespace RA
         }
 
         /// <summary>
+        /// Return value indicating setup for load test.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsLoadSetByCount()
+        {
+            return _isLoadWithCount;
+        }
+
+        /// <summary>
         /// Return thread count used in load test.
         /// </summary>
         /// <returns></returns>
@@ -72,6 +83,15 @@ namespace RA
         }
 
         /// <summary>
+        /// Return request count to use for load test.
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
+        {
+            return _count;
+        }
+
+        /// <summary>
         /// Configure load test with the number of threads and amount of time in seconds to run the test with.
         /// Default of 1 thread and 60 seconds are used if no values are specified.
         /// </summary>
@@ -87,6 +107,24 @@ namespace RA
 
             if (seconds < 0) seconds = 60;
             _seconds = seconds;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Configure load test with the number of requests to make.
+        /// Default of 1000 requests are used if no values are specified.
+        /// </summary>
+        /// <param name="threads"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public HttpActionContext LoadCount(int count = 1000)
+        {
+            _isLoadTest = true;
+            _isLoadWithCount = true;
+
+            if (count < 0) count = 1000;
+            _count = count;
 
             return this;
         }
