@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.1</Version>
+    <Version>2.0.3</Version>
     <Authors>Dayne Dougan</Authors>
     <PackageProjectUrl>https://github.com/DayneD89/RestAssured2</PackageProjectUrl>
     <Company>N\A</Company>
